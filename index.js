@@ -1,12 +1,15 @@
-function isAnagram(s, t) {
-  if (s.length !== t.length) return false;
-  const map = new Map();
-  for (const char of s) {
-    map.set(char, (map.get(char) || 0) + 1);
+function productExceptSelf(nums) {
+  const n = nums.length;
+  const result = new Array(n).fill(1);
+  let product = 1;
+  for (let i = 0; i < n; i++) {
+    result[i] *= product;
+    product *= nums[i];
   }
-  for (const char of t) {
-    if (!map.has(char) || map.get(char) === 0) return false;
-    map.set(char, map.get(char) - 1);
+  product = 1;
+  for (let i = n - 1; i >= 0; i--) {
+    result[i] *= product;
+    product *= nums[i];
   }
-  return true;
+  return result;
 }
