@@ -1,15 +1,10 @@
-function productExceptSelf(nums) {
-  const n = nums.length;
-  const result = new Array(n).fill(1);
-  let product = 1;
-  for (let i = 0; i < n; i++) {
-    result[i] *= product;
-    product *= nums[i];
+function coinChange(coins, amount) {
+  const dp = new Array(amount + 1).fill(amount + 1);
+  dp[0] = 0;
+  for (const coin of coins) {
+    for (let i = coin; i <= amount; i++) {
+      dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+    }
   }
-  product = 1;
-  for (let i = n - 1; i >= 0; i--) {
-    result[i] *= product;
-    product *= nums[i];
-  }
-  return result;
+  return dp[amount] > amount ? -1 : dp[amount];
 }
